@@ -5,11 +5,7 @@
   "author": "bchong <bchong@uw.edu>",
   "main": "functions/__main__.js",
   "dependencies": {
-    "asyncawait": "^1.0.6",
-    "firebase-admin": "^5.8.0",
-    "json-query": "^2.2.2",
-    "node-libcurl": "^1.2.0",
-    "request": "^2.83.0"
+    "firebase-admin": "^5.8.0"
   },
   "private": true,
   "stdlib": {
