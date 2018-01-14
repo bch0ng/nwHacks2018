@@ -1,7 +1,6 @@
 /**
  * Matches an emergency caller with an available dispatcher.
  *
- * @returns {any}
  */
 
 module.exports = (context, callback) => {
@@ -15,16 +14,14 @@ module.exports = (context, callback) => {
 	  credential: admin.credential.cert(serviceAccount),
 	  databaseURL: "https://nwhacks-7c19a.firebaseio.com"
 	});
+
 	var db = admin.database();
-	var ref = db.ref("/Dispatchers/Kanye-West");
 	console.log('lol');
+	var ref = db.ref("/Dispatchers");
 	var data;
 	ref.on("value", function(snapshot) {
-		data = snapshot.val();
-	  console.log(data);
+	  data = callback(snapshot.val());
 	});
-
-	return callback(data);
 
 	/*
 	if (userID == null) {	// Check if userID is present in database
