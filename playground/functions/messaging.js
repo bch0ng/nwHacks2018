@@ -1,11 +1,11 @@
-const lib = require('lib')({token: 'aKaySToILc5co2mw61ZLXxWfAk_ydaxu15srcYt1RM6dXqN9NOkpDBkPRMmy0nB8'});
-
+const lib = require('lib')({token: 'aKaySToILc5co2mw61ZLXxWfAk_ydaxu15srcYt1RM6dXqN9NOkpDBkPRMmy0nB8'});s
 /**
- * Sets the dispatcher's status back to available
+ * Sends an SMS through MessageBird
  *
- * @param {String} phoneNumber
- * @param {String} name
- * @param {String} emergency
+ * @param {String} phoneNumber	recipient's phone number
+ * @param {String} name			name of person in emergency
+ * @param {String} emergency	type of emergency (fire, crime, 
+ *								flood, earthquake, medical, or general)
  */
 module.exports = (phoneNumber, name, emergency, context, callback) => {
 	lib.messagebird.tel['@0.0.14'].sms({

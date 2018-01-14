@@ -1,8 +1,10 @@
 /**
-* Geoca
-* @param {String} emergencyID
-* @returns {any}
-*/
+	* Takes in an emergencyID and finds the nearest
+	* available dispatcher.
+	*
+	* @param {String} emergencyID		a unique ID tied to an emergency
+	* @returns {any}
+	*/
 module.exports = (emergencyID, context, callback) => {
 	var admin = require("firebase-admin");
 
@@ -51,6 +53,12 @@ module.exports = (emergencyID, context, callback) => {
 	});
 };
 
+/**
+	* Takes in a reference and returns either an
+	* error if unreachable or a list of the dispatchers 
+	* if reachable.
+	*
+	*/
 function allDispatchers(ref) {
 	return new Promise(function(resolve, reject) { 
 	  ref.once('value', function(snapshot) {
@@ -60,6 +68,15 @@ function allDispatchers(ref) {
   });
 };
 
+/**
+	* Takes in information regarding an emergency
+	* and returns either an error if unsuccessful
+	* or the location if successful.
+	*
+	* @param {String} emergencyID		a unique ID tied to an emergency
+	* @param {String} ref						a reference to the database (after the base URL)
+	* @param {any} 		db 						a dataframe	
+	*/
 function emergencyLocation(emergencyID, ref, db) {
 	return new Promise(function(resolve, reject) {
 		// Requires the - before id because it cant be inputted into terminal :(
@@ -70,6 +87,19 @@ function emergencyLocation(emergencyID, ref, db) {
 	});
 };
 
+/**
+	* Takes in information regarding an emergency's location
+	* and returns the ID of the closest available dispatcher in
+	* the area.
+	*
+	* @param {float} emerLat								latitude of emergency location
+	* @param {float} emerLong								latitude of emergency location
+	* @param {String} ref										a reference to the database 
+	*																				(after the base URL)
+	* @param {any} 		db 										a dataframe	
+	* @param {any}		availableDispatcher		array of all dispatchers
+	* @returns {any}
+	*/
 function closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher) {
   	// JS Max Int
   	var closestDistance = 4294967295;
@@ -88,6 +118,13 @@ function closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher
   	return closestDispatcherInArea;
 };
 
+/**
+ * Takes in the closest available dispatcher's ID
+ * and changes their status from available to busy.
+ *
+ * @param {String} dispatchID		ID of dispatcher
+ * @param {String} ref 					a reference to the database 
+ */
 function statusUpdater(dispatchID, ref, db) {
 	return new Promise(function(resolve, reject) {
 		ref = db.ref('Dispatchers').child(dispatchID);
@@ -99,12 +136,20 @@ function statusUpdater(dispatchID, ref, db) {
 	});
 };
 
+/**
+ * Takes in two x-y points and returns the
+ * distance between them.
+ * @param {float} lat1 		point 1 latitude
+ * @param {float} lon1 		point 1 longitude
+ * @param {float} lat1 		point 2 latitude
+ * @param {float} lon2 		point 2 longitude
+ * @returns {float}				distance
+ */	
 function distance(lat1, lon1, lat2, lon2) {
 	var p = 0.017453292519943295;    // Math.PI / 180
 	var c = Math.cos;
 	var a = 0.5 - c((lat2 - lat1) * p)/2 +
 	       c(lat1 * p) * c(lat2 * p) *
 	       (1 - c((lon2 - lon1) * p))/2;
-
 	return 12742 * Math.asin(Math.sqrt(a));
 };
