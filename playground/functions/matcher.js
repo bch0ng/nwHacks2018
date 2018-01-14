@@ -1,32 +1,31 @@
 /**
  * Matches an emergency caller with an available dispatcher.
  *
- * @param {string}		userID of emergency caller
- * @param {string}		disID of dispatcher 
- * @returns {string}
- */''
-const lib = require('lib');
+ * @returns {any}
+ */
 
-module.exports = (userID = null, disID = null, context, callback) => {
+module.exports = (context, callback) => {
 
 	// Read the Database
-	var admin = require('firebase-admin');
-	var serviceAccount = require('path/to/<serviceAccountKey>.json');
+
+	var admin = require("firebase-admin");
+	admin.database.enableLogging(true);
+	var serviceAccount = require("../serviceAccountKey.json");
 	admin.initializeApp({
 	  credential: admin.credential.cert(serviceAccount),
-	  databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+	  databaseURL: "https://nwhacks-7c19a.firebaseio.com"
 	});
 	var db = admin.database();
-	// https://docs-examples.firebaseio.com/server/saving-data/fireblog/posts. 
-	var ref = db.ref("server/saving-data/fireblog/posts");
+	var ref = db.ref("/Dispatchers/Kanye-West");
+	console.log('lol');
 	var data;
 	ref.on("value", function(snapshot) {
-	  data = snapshot.val();
-	}, function (errorObject) {
-	  console.log("The read failed: " + errorObject.code);
+		data = snapshot.val();
+	  console.log(data);
 	});
 
-	return callback(null, data);
+	return callback(data);
+
 	/*
 	if (userID == null) {	// Check if userID is present in database
 			throw new Error('Missing userID');
@@ -34,7 +33,10 @@ module.exports = (userID = null, disID = null, context, callback) => {
 	if (disID == null) { // Check if disID is present in database
 		throw new Error('Missing disID');
 	}
-  return callback(null, `bye ${userID} and ${disID}`);
+  return callback(null, `bye`);
   */
+
+  //callback(curl.getJSON('https://nwhacks-7c19a.firebaseio.com/Dispatchers.json');
+
 
 };
