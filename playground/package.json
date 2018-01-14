@@ -1,14 +1,14 @@
 {
   "name": "playground",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "",
   "author": "bchong <bchong@uw.edu>",
   "main": "functions/__main__.js",
   "dependencies": {
     "@google/maps": "^0.4.5",
-    "firebase-admin": "^5.8.0"
+    "firebase-admin": "^5.8.0",
+    "lib": "^3.0.1"
   },
-  "private": true,
   "stdlib": {
     "build": "faaslang",
     "name": "bchong/playground",

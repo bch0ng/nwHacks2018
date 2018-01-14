@@ -21,7 +21,7 @@ module.exports = (emergencyID, dispatchID, context, callback) => {
 
 	statusUpdater(ref, dispatchID)
 	.then(function() {
-		process.exit();
+		callback(null, null);
 	})
 };
 

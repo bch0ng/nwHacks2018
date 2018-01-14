@@ -21,19 +21,16 @@ module.exports = (dispatchID, context, callback) => {
 
 	allDispatchers(ref)
 	.then(function(result) {
-		if (!result){
-	  		throw new Error('No results');
-	  	}
 		var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
 				result['Location'].Latitude + ',' + result['Location'].Longitude + 
 				//'&result_type=political' +
 				'&key=AIzaSyC5ZLReN35KxOht53W6Gh8BpeGip2gomuM';
 		streetAddress(url).then(function(result) {
 			var name = result['results'][5]['formatted_address'];
-			callback(null, name);
-		}).catch (function(e) {
-			return callback(e);
-	  	});
+			callback(name);
+		}).then(function() {
+			process.exit();
+		})
 	});
 };
 

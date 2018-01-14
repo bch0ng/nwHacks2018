@@ -40,9 +40,7 @@ module.exports = (emergencyID, context, callback) => {
 			callback(null, alts);
 		}).catch (function(e) {
 			return callback(e);
-	  	}).catch (function(e) {
-			return callback(e);
-	});
+	  	});
 	});
 };
 

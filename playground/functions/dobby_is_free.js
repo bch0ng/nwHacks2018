@@ -7,17 +7,19 @@ module.exports = (dispatchID, context, callback) => {
 	var admin = require("firebase-admin");
 
 	// Initialize the app with a service account, granting admin privileges
-	admin.initializeApp({
-	  credential: admin.credential.cert(require('../serviceAccountKey.json')),
-	  databaseURL: "https://nwhacks-7c19a.firebaseio.com/"
-	});
+	if (!admin.apps.length) {
+    	admin.initializeApp({
+	  		credential: admin.credential.cert(require('../serviceAccountKey.json')),
+	  		databaseURL: "https://nwhacks-7c19a.firebaseio.com/"
+		});
+	}
 	var db = admin.database();
 	//admin.database.enableLogging(true);
 	var ref = db.ref('Dispatchers').child(dispatchID);
 
 	statusUpdater(ref)
 	.then(function() {
-		process.exit();
+		callback(null, null);
 	})
 };
 

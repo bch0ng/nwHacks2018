@@ -1,10 +1,9 @@
 /**
  * Sets the dispatcher's status back to available
  *
- * @param {String} emergencyID
  * @param {String} dispatchID
  */
-module.exports = (emergencyID, dispatchID, context, callback) => {
+module.exports = (dispatchID, context, callback) => {
 	var admin = require("firebase-admin");
 
 	// Initialize the app with a service account, granting admin privileges
@@ -16,19 +15,18 @@ module.exports = (emergencyID, dispatchID, context, callback) => {
 	}
 	var db = admin.database();
 	//admin.database.enableLogging(true);
-	// Adds "-" because terminal don't likey
-	var ref = db.ref('Emergency').child("-" + emergencyID);
+	var ref = db.ref('Dispatchers').child(dispatchID);
 
-	statusUpdater(ref, dispatchID)
+	statusUpdater(ref)
 	.then(function() {
-		process.exit();
+		callback(null, null)
 	})
 };
 
-function statusUpdater(ref, dispatchID) {
+function statusUpdater(ref) {
 	return new Promise(function(resolve, reject) {
 		ref.update({
-			dispatcherID: dispatchID
+			Status: 'a'
 		}).then(function() {
 			resolve(true);
 		});
