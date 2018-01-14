@@ -15,6 +15,7 @@ module.exports = (emergencyID, context, callback) => {
 	//admin.database.enableLogging(true);
 	var ref = db.ref('Dispatchers');
 	var data;
+
   allDispatchers(ref)
 	.then(function(result) {
    	data = result;
@@ -34,24 +35,12 @@ module.exports = (emergencyID, context, callback) => {
 	  	closestID = closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher);
 		}).then(function() {
 			statusUpdater(closestID, ref, db)
-	  .then(function(result) {
-	  	callback(closestID);
-	  	process.exit();
-	  });
-		})
-	  /*
-	  .then(function(result) {
-	  	var data = result;
-	  }).then(function() {
-	  	process.exit();
-	  });
-
-	  statusUpdater(closestID, ref, db)
-	  .then(function(result) {
-	  	callback(closestID);
-	  	process.exit();
-	  });
-	  */
+			.then(function(result) {
+	  		callback(closestID);
+	  	}).then(function() {
+	  		process.exit();
+	  	});
+		});
 	});
 };
 
@@ -72,7 +61,7 @@ function emergencyLocation(emergencyID, ref, db) {
 			resolve(result);
 		});
 	});
-}
+};
 
 function closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher) {
   	// JS Max Int
@@ -86,9 +75,9 @@ function closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher
 	  		if (distanceBetween < closestDistance) {
 	  			closestDispatcherInArea = x;
 	  			closestDistance = distanceBetween;
-	  		}
-	  	}
-  	}
+	  		};
+	  	};
+  	};
   	return closestDispatcherInArea;
 };
 
@@ -101,53 +90,7 @@ function statusUpdater(dispatchID, ref, db) {
 			resolve(true);
 		});
 	});
-}
-
-/*
-function closestDispatcher(emergencyID, ref, data, db, availableDispatcher) {
-	return new Promise(function(resolve, reject) {
-		var size = availableDispatcher.length;
-  	var index = 0;
-  	var found = false;
-  	while(index < size) {
-		  if (data[availableDispatcher[index]].Status.toLowerCase() == 'a') {
-		  	ref = db.ref('Dispatchers').child(availableDispatcher[index]);
-		  	result = availableDispatcher[index];
-		  	ref.update({
-					Status: 'b'
-				}).then(function() {
-					resolve(result);
-				})
-				break;
-			}
-			index++;
-	  };
-	  //result = null;
-		//resolve(result);
-	});
 };
-*/
-
-/*
-function closestDispatcherFinder(lat, long) {
-var location = db.ref('Emergency/location');
-var emerLat = 
-var emerLong = 
-var closestDispatcherDistance;
-
-var dispatcher = availableDispatcher[0];
-closestDispatcher = dispatcher; 
-distance = distance(lat, lon, dispatcher[latitude], dispatcher[longitude])
-
-for (var i = 1; i < size; i++) {
-  var dispatcher2 = availableDispatcher[i];
-var acc = distance(emerLat, emerLong, lat, long)
- if ( acc < distance) {
-   distance = acc;
-   closestDispatcher = dispatcher;
- }
-}
-*/
 
 function distance(lat1, lon1, lat2, lon2) {
 	var p = 0.017453292519943295;    // Math.PI / 180
@@ -157,4 +100,4 @@ function distance(lat1, lon1, lat2, lon2) {
 	       (1 - c((lon2 - lon1) * p))/2;
 
 	return 12742 * Math.asin(Math.sqrt(a));
-}
+};

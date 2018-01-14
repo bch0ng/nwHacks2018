@@ -1,0 +1,61 @@
+{
+  "Dispatchers" : {
+    "Kayne West" : {
+      "Dispatcher ID" : 39339,
+      "Status" : "Available",
+      "Working Location" : "New York"
+    },
+    "Mary Jane" : {
+      "Dispatcher ID" : 12345,
+      "Status" : "Busy",
+      "Working Location" : "Vancouver"
+    },
+    "Taylor Swift" : {
+      "Dispatcher ID" : 56789,
+      "Status " : "Busy",
+      "Working Location " : "Seattle"
+    }
+  },
+  "Emergency Pairing" : {
+    "Pair1" : {
+      "Dispatcher ID" : 12345,
+      "Location" : {
+        "Altitude" : 12,
+        "Latitude" : 23.3,
+        "Longitude " : 123
+      },
+      "User ID" : 12484
+    },
+    "Pair2" : {
+      "Dispatcher ID" : 56789,
+      "Location" : {
+        "Altitude" : 234.3,
+        "Latitude" : 49.4,
+        "Longitude" : 300
+      },
+      "User ID" : 13329
+    }
+  },
+  "Users" : {
+    "John Smith" : {
+      "Age" : 29,
+      "Blood Type" : "A+",
+      "Emergency Contact" : "778-888-8888",
+      "Eye Color" : "Brown",
+      "Hair Color" : "Black",
+      "Height" : 190,
+      "User ID" : 12484,
+      "Weight " : 60
+    },
+    "Steven Jim" : {
+      "Age" : 20,
+      "Blood Type " : "O",
+      "Emergency Contact" : " 778-123-4567",
+      "Eye Color" : "Brown",
+      "Hair Color" : "Brown",
+      "Height" : 180,
+      "User ID" : 13329,
+      "Weight" : 75
+    }
+  }
+}
