@@ -17,7 +17,7 @@ module.exports = (emergencyID, dispatchID, context, callback) => {
 	var db = admin.database();
 	//admin.database.enableLogging(true);
 	// Adds "-" because terminal don't likey
-	var ref = db.ref('Emergency').child("-" + emergencyID);
+	var ref = db.ref('Emergency').child(emergencyID);
 
 	statusUpdater(ref, dispatchID)
 	.then(function() {

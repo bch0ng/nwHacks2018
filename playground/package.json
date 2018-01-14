@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "",
   "author": "bchong <bchong@uw.edu>",
   "main": "functions/__main__.js",

@@ -37,7 +37,6 @@ module.exports = (emergencyID, context, callback) => {
 				emerLat = result['latitude'];
 				emerLong = result['longitude'];
 		  }).then(function() {
-		  	console.log('hfeiowhfaoiewhio');
 		  	closestID = closestDispatcher(emerLat, emerLong, ref, data, db, availableDispatcher);
 			}).then(function() {
 				statusUpdater(closestID, ref, db)

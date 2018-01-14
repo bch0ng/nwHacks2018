@@ -17,7 +17,7 @@ module.exports = (emergencyID, context, callback) => {
 	var db = admin.database();
 	//admin.database.enableLogging(true);
 	// Adds "-" because terminal don't likey
-	var ref = db.ref('Emergency').child("-" + emergencyID);
+	var ref = db.ref('Emergency').child(emergencyID);
 
 	var googleMapsClient = require('@google/maps').createClient({
 	  key: 'AIzaSyCgk4Bn5s8zEIpK6VTewRYENbqTzG4vCgU'
@@ -74,7 +74,7 @@ function allDispatchers(ref) {
 function emergencyLocation(emergencyID, ref, db) {
 	return new Promise(function(resolve, reject) {
 		// Requires the - before id because it cant be inputted into terminal :(
-		ref = db.ref('Emergency/-' + emergencyID + '/location');
+		ref = db.ref('Emergency/' + emergencyID + '/location');
 		allDispatchers(ref).then(function(result) {
 			resolve(result);
 		});
