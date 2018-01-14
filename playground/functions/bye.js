@@ -1,5 +1,5 @@
 /**
-* A basic Bye World function
+* Geoca
 * @param {string} name Who you're saying hello to
 * @returns {string}
 */
